@@ -5,60 +5,31 @@
 #include "cadastrar_usuario.h"
 #include "autenticar_usuario.h"
 #include "listar_usuarios.h"
+#include "menu.h"
 
 
 int main(int argc, char *argv[]) {
-		if (argc != 4) {
-				fprintf(stderr, "uso: %s <usuario> <senha> <database>\n", argv[0]);
+		if (argc != 5) {
+				fprintf(stderr, "uso: %s <usuario> <senha> <database> <host>\n", argv[0]);
 				return 1;
 		}
 
 		char *usuario = argv[1];
 		char *senha = argv[2];
 		char *database = argv[3];
+		char *host= argv[4];
 
 		char conexao[256];
-		snprintf(conexao, 256, "user=%s password=%s dbname=%s", usuario, senha, database);
+		snprintf(conexao, 256, "user=%s password=%s dbname=%s host=%s", usuario, senha, database, host);
 
 		PGconn *conn = PQconnectdb(conexao);
 
 		if (PQstatus(conn) != CONNECTION_OK) {
-				fprintf(stderr, "Erro ao conectar ao banco de dados: %s\n", PQerrorMessage(conn));
+				printf("erro ao conectar ao banco de dados\n");
 				PQfinish(conn);
 				return 1;
 		}
-
-		printf("Conexão estabelecida com sucesso!\n");
-
-		int opcao;
-		int user_id;
-
-		do {
-				printf("\nEscolha uma opção:\n");
-				printf("1. Login\n");
-				printf("2. Cadastrar Usuário\n");
-				printf("3. Sair\n");
-				printf("Opção: ");
-				scanf("%d", &opcao);
-				listar_usuarios(conn);
-				
-
-				switch (opcao) {
-						case 1:
-								if (autenticar_usuario(conn, &user_id)) {
-										printf("Login bem-sucedido! ID do usuário: %d\n", user_id);
-								}
-								break;
-						case 2:
-								cadastrar_usuario(conn);
-								break;
-						case 3:
-								printf("Saindo...\n");
-								break;
-						default:
-								printf("Opção inválida.\n");
-				}
-		} while (opcao != 3);
+		menu(conn);
 
 		PQfinish(conn);
 		return 0;
