@@ -1,3 +1,4 @@
+//autenticar_usuario.h
 int autenticar_usuario(PGconn *conn, int *user_id) {
 		char username[50];
 		char password[50];

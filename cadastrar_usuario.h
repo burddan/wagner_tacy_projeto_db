@@ -1,3 +1,4 @@
+//cadastrar_usuario.h
 void cadastrar_usuario(PGconn *conn) {
 		char username[50];
 		char password[50];

@@ -4,6 +4,7 @@
 #include <libpq-fe.h>
 #include "cadastrar_usuario.h"
 #include "autenticar_usuario.h"
+#include "listar_usuarios.h"
 
 
 int main(int argc, char *argv[]) {
@@ -39,6 +40,8 @@ int main(int argc, char *argv[]) {
 				printf("3. Sair\n");
 				printf("Opção: ");
 				scanf("%d", &opcao);
+				listar_usuarios(conn);
+				
 
 				switch (opcao) {
 						case 1:
