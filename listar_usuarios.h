@@ -1,20 +1,21 @@
-//listar_usuarios
-void listar_usuarios(PGconn *conn) {
-    const char *query = "SELECT id, username FROM usuarios";
-    PGresult *res = PQexec(conn, query);
+void listar_usuarios(PGconn *conexao) {
+    const char *consulta = "SELECT id, username FROM usuarios";
+    PGresult *resultado = PQexec(conexao, consulta);
 
-    if (PQresultStatus(res) != PGRES_TUPLES_OK) {
-        fprintf(stderr, "Erro ao listar usuários: %s\n", PQerrorMessage(conn));
-        PQclear(res);
-        return;
+/*    if (PQresultStatus(resultado) != PGRES_TUPLES_OK) {
+        fprintf(stderr, "Erro ao listar usuários: %s\n", PQerrorMessage(conexao));
+		//printf("erro ao lista usuarios\n");
+        PQclear(resultado);
+        return; //  return pra nao continuar
+    }
+*/
+
+    int linhas = PQntuples(resultado); // a porra da linha
+    printf("numero de usuários: %d\n", linhas);
+    for (int i = 0; i < linhas; i++) {
+        printf("ID: %s, usuarios: %s\n", PQgetvalue(resultado, i, 0), PQgetvalue(resultado, i, 1));
     }
 
-    int rows = PQntuples(res);
-    printf("Número de usuários: %d\n", rows);
-    for (int i = 0; i < rows; i++) {
-        printf("ID: %s, usuario: %s\n", PQgetvalue(res, i, 0), PQgetvalue(res, i, 1));
-    }
-
-    PQclear(res);
+    PQclear(resultado);
 }
 

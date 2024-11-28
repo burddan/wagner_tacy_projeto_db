@@ -19,19 +19,20 @@ int main(int argc, char *argv[]) {
 		char *database = argv[3];
 		char *host= argv[4];
 
-		char conexao[256];
-		snprintf(conexao, 256, "user=%s password=%s dbname=%s host=%s", usuario, senha, database, host);
+		char login[256];
+		snprintf(login, 256, "user=%s password=%s dbname=%s host=%s", usuario, senha, database, host);
 
-		PGconn *conn = PQconnectdb(conexao);
+		PGconn *conexao = PQconnectdb(login);
 
-		if (PQstatus(conn) != CONNECTION_OK) {
+		if (PQstatus(conexao) != CONNECTION_OK) {
 				printf("erro ao conectar ao banco de dados\n");
-				PQfinish(conn);
+				PQfinish(conexao);
 				return 1;
 		}
-		menu(conn);
+		listar_usuarios(conexao);
+		menu(conexao);
 
-		PQfinish(conn);
+		PQfinish(conexao);
 		return 0;
 }
 

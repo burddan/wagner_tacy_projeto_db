@@ -1,5 +1,5 @@
 //cadastrar_usuario.h
-void cadastrar_usuario(PGconn *conn) {
+void cadastrar_usuario(PGconn *conexao) {
 		char username[50];
 		char password[50];
 
@@ -11,10 +11,10 @@ void cadastrar_usuario(PGconn *conn) {
 		const char *query = "INSERT INTO usuarios (username, password) VALUES ($1, $2)";
 		const char *params[2] = {username, password};
 
-		PGresult *res = PQexecParams(conn, query, 2, NULL, params, NULL, NULL, 0);
+		PGresult *res = PQexecParams(conexao, query, 2, NULL, params, NULL, NULL, 0);
 
 		if (PQresultStatus(res) != PGRES_COMMAND_OK) {
-				fprintf(stderr, "Erro ao cadastrar usuário: %s\n", PQerrorMessage(conn));
+				fprintf(stderr, "Erro ao cadastrar usuário: %s\n", PQerrorMessage(conexao));
 		} else {
 				printf("Usuário cadastrado com sucesso!\n");
 		}
