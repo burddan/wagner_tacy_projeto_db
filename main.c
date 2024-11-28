@@ -2,12 +2,18 @@
 #include <stdlib.h>
 #include <string.h>
 #include <libpq-fe.h>
-#include "cadastrar_usuario.h"
-#include "autenticar_usuario.h"
-#include "listar_usuarios.h"
-#include "menu.h"
-#include "registrar_acao.h"
-
+#include "c/cadastrar_usuario.h"
+#include "c/autenticar_usuario.h"
+#include "c/listar_usuarios.h"
+#include "c/menu.h"
+#include "c/registrar_acao.h"
+//produtos
+#include "c/adicionar_produto.h"
+#include "c/listar_produto.h"
+#include "c/deletar_produto.h"
+//funcionarios
+#include "c/adicionar_funcionario.h"
+#include "c/deletar_funcionario.h"
 
 int main(int argc, char *argv[]) {
 		if (argc != 5) {
