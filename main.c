@@ -6,6 +6,7 @@
 #include "autenticar_usuario.h"
 #include "listar_usuarios.h"
 #include "menu.h"
+#include "registrar_acao.h"
 
 
 int main(int argc, char *argv[]) {
@@ -29,6 +30,7 @@ int main(int argc, char *argv[]) {
 				PQfinish(conexao);
 				return 1;
 		}
+		system("clear");
 		listar_usuarios(conexao);
 		menu(conexao);
 

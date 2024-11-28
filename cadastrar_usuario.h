@@ -3,21 +3,22 @@ void cadastrar_usuario(PGconn *conexao) {
 		char username[50];
 		char password[50];
 
-		printf("Digite o nome de usuário: ");
-		scanf("%49s", username);
-		printf("Digite a senha: ");
+		printf("digite o nome do usuario: ");
+		scanf("%49s", username); // buffer overflow
+		printf("digite a senha: ");
 		scanf("%49s", password);
 
-		const char *query = "INSERT INTO usuarios (username, password) VALUES ($1, $2)";
-		const char *params[2] = {username, password};
+		const char *consulta = "INSERT INTO usuarios (username, password) VALUES ($1, $2)";
+		const char *input[2] = {username, password};
 
-		PGresult *res = PQexecParams(conexao, query, 2, NULL, params, NULL, NULL, 0);
+		PGresult *resultado = PQexecParams(conexao, consulta, 2, NULL, input, NULL, NULL, 0);
 
-		if (PQresultStatus(res) != PGRES_COMMAND_OK) {
+		if (PQresultStatus(resultado) != PGRES_COMMAND_OK) {
 				fprintf(stderr, "Erro ao cadastrar usuário: %s\n", PQerrorMessage(conexao));
+				//printf("erro ao cadastrar usuario\n");
 		} else {
-				printf("Usuário cadastrado com sucesso!\n");
+				printf("usuario cadastrado com sucesso\n");
 		}
 
-		PQclear(res);
+		PQclear(resultado);
 }

@@ -1,25 +1,26 @@
 //autenticar_usuario.h
-int autenticar_usuario(PGconn *conn, int *user_id) {
-		char username[50];
+int autenticar_usuario(PGconn *conexao, int *user_id) {
+		char username[50]; 
 		char password[50];
+		// username e password mesmos nomes pro dtb
 
-		printf("Digite o nome de usuário: ");
+		printf("digite o usuario: ");
 		scanf("%49s", username);
-		printf("Digite a senha: ");
+		printf("digite a senha: ");
 		scanf("%49s", password);
 
-		const char *query = "SELECT id FROM usuarios WHERE username = $1 AND password = $2";
-		const char *params[2] = {username, password};
+		const char *consulta = "SELECT id FROM usuarios WHERE username = $1 AND password = $2";
+		const char *parametros[2] = {username, password};
 
-		PGresult *res = PQexecParams(conn, query, 2, NULL, params, NULL, NULL, 0);
+		PGresult *resultado = PQexecParams(conexao, consulta, 2, NULL, parametros, NULL, NULL, 0);
 
-		if (PQresultStatus(res) != PGRES_TUPLES_OK || PQntuples(res) == 0) {
-				fprintf(stderr, "Autenticação falhou. Verifique suas credenciais.\n");
-				PQclear(res);
+		if (PQresultStatus(resultado) != PGRES_TUPLES_OK || PQntuples(resultado) == 0) {
+				fprintf(stderr, "autenticacao falhou tem algo de errado\n");
+				PQclear(resultado);
 				return 0;
 		}
 
-		*user_id = atoi(PQgetvalue(res, 0, 0));
-		PQclear(res);
+		*user_id = atoi(PQgetvalue(resultado, 0, 0));
+		PQclear(resultado);
 		return 1;
 }
