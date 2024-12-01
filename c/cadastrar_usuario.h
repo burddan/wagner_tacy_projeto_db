@@ -1,24 +1,36 @@
-//cadastrar_usuario.h
+void registrar_acao(PGconn *conexao, int user_id, const char *acao);
 void cadastrar_usuario(PGconn *conexao) {
-		char username[50];
-		char password[50];
+    char username[50], password[50];
+    int tipo_usuario;
 
-		printf("digite o nome do usuario: ");
-		scanf("%49s", username); // buffer overflow
-		printf("digite a senha: ");
-		scanf("%49s", password);
+    printf("Digite o nome do usuário: ");
+    scanf("%49s", username);
+    printf("Digite a senha: ");
+    scanf("%49s", password);
 
-		const char *consulta = "INSERT INTO usuarios (username, password) VALUES ($1, $2)";
-		const char *input[2] = {username, password};
+    printf("Tipo de usuário:\n1. Cliente\n2. Funcionário\nEscolha: ");
+    scanf("%d", &tipo_usuario);
 
-		PGresult *resultado = PQexecParams(conexao, consulta, 2, NULL, input, NULL, NULL, 0);
+    const char *query = "INSERT INTO usuarios (username, password) VALUES ($1, $2) RETURNING id";
+    const char *params[2] = {username, password};
 
-		if (PQresultStatus(resultado) != PGRES_COMMAND_OK) {
-				fprintf(stderr, "Erro ao cadastrar usuário: %s\n", PQerrorMessage(conexao));
-				//printf("erro ao cadastrar usuario\n");
-		} else {
-				printf("usuario cadastrado com sucesso\n");
-		}
+    PGresult *resultado = PQexecParams(conexao, query, 2, NULL, params, NULL, NULL, 0);
 
-		PQclear(resultado);
+    if (PQresultStatus(resultado) == PGRES_TUPLES_OK) {
+        int user_id = atoi(PQgetvalue(resultado, 0, 0));
+
+        if (tipo_usuario == 1) {
+            const char *cliente_query = "INSERT INTO clientes (nome, cpf, idPadaria) VALUES ($1, $2, 1)";
+            printf("Cadastro como cliente realizado com sucesso.\n");
+        } else if (tipo_usuario == 2) {
+            printf("Cadastro como funcionário realizado com sucesso.\n");
+        }
+
+        registrar_acao(conexao, user_id, "Cadastro de novo usuário");
+    } else {
+        fprintf(stderr, "Erro ao cadastrar usuário: %s\n", PQerrorMessage(conexao));
+    }
+
+    PQclear(resultado);
 }
+

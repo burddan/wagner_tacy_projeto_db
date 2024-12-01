@@ -38,7 +38,7 @@ int main(int argc, char *argv[]) {
 		}
 		system("clear");
 		listar_usuarios(conexao);
-		menu(conexao);
+		menu_inicial(conexao);
 
 		PQfinish(conexao);
 		return 0;
