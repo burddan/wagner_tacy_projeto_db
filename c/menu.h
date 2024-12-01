@@ -9,22 +9,22 @@ void menu(PGconn *conexao) {
 		int user_id = 0;  // Inicializa o ID do usuário como 0 (não logado).
 
 		do {
-				printf("\nMenu:\n");
-				printf("1. Login\n");
-				printf("2. Cadastrar Usuário\n");
-				printf("3. Adicionar Produto\n");
-				printf("4. Listar Produtos\n");
-				printf("5. Deletar Produto\n");
-				printf("6. Adicionar Funcionário\n");
-				printf("7. Deletar Funcionário\n");
-				printf("8. Sair\n");
-				printf("Escolha uma opção: ");
+				printf("\nmenu:\n");
+				printf("1. login\n");
+				printf("2. cadastrar usuario\n");
+				printf("3. adcionar produto\n");
+				printf("4. listar produto\n");
+				printf("5. deletar produto\n");
+				printf("6. adicionar funcionario \n");
+				printf("7. deletar funcionario\n");
+				printf("8. sair\n");
+				printf("escolha uma opcao: ");
 				scanf("%d", &opcao);
 
 				switch (opcao) {
 						case 1:
 								if (autenticar_usuario(conexao, &user_id)) {
-										printf("Login bem-sucedido! ID do usuário: %d\n", user_id);
+										printf("login bem-sucedido! ID do usuario: %d\n", user_id);
 								}
 								break;
 						case 2:
@@ -34,7 +34,7 @@ void menu(PGconn *conexao) {
 								if (user_id) {
 										adicionar_produto(conexao, user_id);
 								} else {
-										printf("Por favor, faça login primeiro.\n");
+										printf("faça login primeiro\n");
 								}
 								break;
 						case 4:
@@ -44,25 +44,25 @@ void menu(PGconn *conexao) {
 								if (user_id) {
 										deletar_produto(conexao, user_id);
 								} else {
-										printf("Por favor, faça login primeiro.\n");
+										printf("faça login primeiro\n");
 								}
 								break;
 						case 6:
 								if (user_id) {
 										adicionar_funcionario(conexao, user_id);
 								} else {
-										printf("Por favor, faça login primeiro.\n");
+										printf("por favor faça login primeiro\n");
 								}
 								break;
 						case 7:
 								if (user_id) {
 										deletar_funcionario(conexao, user_id);
 								} else {
-										printf("Por favor, faça login primeiro.\n");
+										printf("por favor, faça login primeiro\n");
 								}
 								break;
 						case 8:
-								printf("Saindo...\n");
+								printf("saindo...\n");
 								break;
 						default:
 								printf("Opção inválida.\n");
