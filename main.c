@@ -12,8 +12,6 @@
 #include "c/listar_produto.h"
 #include "c/deletar_produto.h"
 //funcionarios
-#include "c/adicionar_funcionario.h"
-#include "c/deletar_funcionario.h"
 
 int main(int argc, char *argv[]) {
 		if (argc != 5) {

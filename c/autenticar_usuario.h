@@ -1,26 +1,39 @@
 //autenticar_usuario.h
-int autenticar_usuario(PGconn *conexao, int *user_id) {
-		char username[50]; 
-		char password[50];
-		// username e password mesmos nomes pro dtb
+void menu_admin(PGconn *conexao);
+void menu_funcionario(PGconn *conexao);
+void menu_cliente(PGconn *conexao);
 
-		printf("digite o usuario: ");
-		scanf("%49s", username);
-		printf("digite a senha: ");
-		scanf("%49s", password);
+void autenticar_usuario(PGconn *conexao) {
+		char username[50], password[50], query[256];
+		PGresult *res;
 
-		const char *consulta = "SELECT id FROM usuarios WHERE username = $1 AND password = $2";
-		const char *parametros[2] = {username, password};
+		printf("Digite o username: ");
+		scanf("%s", username);
+		printf("Digite a senha: ");
+		scanf("%s", password);
 
-		PGresult *resultado = PQexecParams(conexao, consulta, 2, NULL, parametros, NULL, NULL, 0);
+		snprintf(query, sizeof(query), "SELECT tipo FROM usuarios WHERE username = '%s' AND password = '%s'", username, password);
 
-		if (PQresultStatus(resultado) != PGRES_TUPLES_OK || PQntuples(resultado) == 0) {
-				fprintf(stderr, "autenticacao falhou tem algo de errado\n");
-				PQclear(resultado);
-				return 0;
+		res = PQexec(conexao, query);
+
+		if (PQresultStatus(res) != PGRES_TUPLES_OK) {
+				printf("Erro na consulta. Tente novamente.\n");
+				PQclear(res);
+				return;
 		}
 
-		*user_id = atoi(PQgetvalue(resultado, 0, 0));
-		PQclear(resultado);
-		return 1;
+		if (PQntuples(res) == 0) {
+				printf("Usuário ou senha inválidos.\n");
+		} else {
+				char *tipo = PQgetvalue(res, 0, 0);
+				if (strcmp(tipo, "admin") == 0) {
+						menu_admin(conexao);
+				} else if (strcmp(tipo, "funcionario") == 0) {
+						menu_funcionario(conexao);
+				} else if (strcmp(tipo, "cliente") == 0) {
+						menu_cliente(conexao);
+				}
+		}
+
+		PQclear(res);
 }
