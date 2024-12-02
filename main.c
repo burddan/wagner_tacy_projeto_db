@@ -12,6 +12,8 @@
 #include "c/listar_produto.h"
 #include "c/deletar_produto.h"
 //funcionarios
+#include "c/adicionar_funcionario.h"
+#include "c/deletar_funcionario.h"
 
 int main(int argc, char *argv[]) {
 		if (argc != 5) {
@@ -25,7 +27,7 @@ int main(int argc, char *argv[]) {
 		char *host= argv[4];
 
 		char login[256];
-		snprintf(login, 256, "user=%s password=%s dbname=%s host=%s", usuario, senha, database, host);
+		snprintf(login, sizeof(login), "user=%s password=%s dbname=%s host=%s", usuario, senha, database, host);
 
 		PGconn *conexao = PQconnectdb(login);
 
@@ -35,7 +37,6 @@ int main(int argc, char *argv[]) {
 				return 1;
 		}
 		system("clear");
-		listar_usuarios(conexao);
 		menu_inicial(conexao);
 
 		PQfinish(conexao);

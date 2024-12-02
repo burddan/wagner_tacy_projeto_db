@@ -2,10 +2,10 @@ void adicionar_produto(PGconn *conexao, int user_id) {
     char tipo[40];
     char descricao[100];
 
-    printf("digite o tipo do produto: ");
-    scanf("%39s", tipo);
-    printf("digite a descricao do produto: ");
-    scanf("%99s", descricao);
+    printf("Digite o tipo do produto: ");
+    scanf("%40", tipo);
+    printf("Digite a descricao do produto: ");
+    scanf("%100", descricao);
 
     const char *consulta = "INSERT INTO Produtos (tipo, descricao, idPadaria) VALUES ($1, $2, 1)";
     const char *parametros[2] = {tipo, descricao};

@@ -1,27 +1,27 @@
-void adicionar_funcionario(PGconn *conexao) {
+void adicionar_funcionario(PGconn *conexao, int user_id) {
     char nome[100], cpf[12];
-    char query[512];
-    PGresult *res;
+    char consulta[512];
+    PGresult *resultado;
 
-    printf("Digite o nome completo do funcionário: ");
-    getchar();  // Limpa o buffer do teclado
+    printf("Digite o nome completo do funcionario: ");
+    getchar();  
     fgets(nome, sizeof(nome), stdin);
     nome[strcspn(nome, "\n")] = 0;  // Remove o caractere '\n' no final
 
-    printf("Digite o CPF do funcionário (somente números): ");
+    printf("Digite o cpf do funcionario: ");
     scanf("%s", cpf);
 
-    // Inserir o funcionário na tabela de funcionários
-    snprintf(query, sizeof(query), "INSERT INTO funcionarios (nome, cpf) VALUES ('%s', '%s')", nome, cpf);
-    res = PQexec(conexao, query);
+    snprintf(consulta, 256, "INSERT INTO funcionarios (nome, cpf) VALUES ('%s', '%s')", nome, cpf);
+    resultado = PQexec(conexao, consulta);
 
-    if (PQresultStatus(res) != PGRES_COMMAND_OK) {
+    if (PQresultStatus(resultado) != PGRES_COMMAND_OK) {
         printf("Erro ao adicionar funcionário.\n");
-        PQclear(res);
+        PQclear(resultado);
         return;
     }
 
-    printf("Funcionário adicionado com sucesso!\n");
-    PQclear(res);
-}
+    registrar_acao(conexao, user_id, "Adicionou um novo funcionario");
 
+    printf("Funcionario adicionado\n");
+    PQclear(resultado);
+}

@@ -3,32 +3,31 @@ void menu_funcionario(PGconn *conexao, int user_id);
 void menu_cliente(PGconn *conexao, int user_id);
 
 void autenticar_usuario(PGconn *conexao) {
-		char username[50], password[50], query[256];
-		PGresult *res;
+		char username[50], password[50], consulta[256];
+		PGresult *resultado;
 
 		printf("Digite o username: ");
 		scanf("%s", username);
 		printf("Digite a senha: ");
 		scanf("%s", password);
 
-		snprintf(query, sizeof(query), "SELECT id, tipo FROM usuarios WHERE username = '%s' AND password = '%s'", username, password);
+		snprintf(consulta, 256, "SELECT id, tipo FROM usuarios WHERE username = '%s' AND password = '%s'", username, password);
 
-		res = PQexec(conexao, query);
+		resultado = PQexec(conexao, consulta);
 
-		if (PQresultStatus(res) != PGRES_TUPLES_OK) {
-				printf("Erro na consulta. Tente novamente.\n");
-				PQclear(res);
+		if (PQresultStatus(resultado) != PGRES_TUPLES_OK) {
+				printf("Erro na consulta \n");
+				PQclear(resultado);
 				return;
 		}
 
-		if (PQntuples(res) == 0) {
-				printf("Usuário ou senha inválidos.\n");
+		if (PQntuples(resultado) == 0) {
+				printf("Usuario ou senha incorreto\n");
 		} else {
-				int user_id = atoi(PQgetvalue(res, 0, 0));  // Recupera o ID do usuário ?????
-				char *tipo = PQgetvalue(res, 0, 1);
-				printf("Usuário autenticado com sucesso! Tipo: %s\n", tipo);
+				int user_id = atoi(PQgetvalue(resultado, 0, 0));  // revisar essa porra
+				char *tipo = PQgetvalue(resultado, 0, 1);
+				printf("Usuario tipo %s cadastrado \n", tipo);
 
-				// Armazena o user_id em algum lugar global ou passa como parâmetro para as funções
 				if (strcmp(tipo, "admin") == 0) {
 						menu_admin(conexao, user_id);
 				} else if (strcmp(tipo, "funcionario") == 0) {
@@ -38,6 +37,6 @@ void autenticar_usuario(PGconn *conexao) {
 				}
 		}
 
-		PQclear(res);
+		PQclear(resultado);
 }
 
