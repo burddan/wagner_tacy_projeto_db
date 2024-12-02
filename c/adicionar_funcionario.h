@@ -15,7 +15,7 @@ void adicionar_funcionario(PGconn *conexao, int user_id) {
     resultado = PQexec(conexao, consulta);
 
     if (PQresultStatus(resultado) != PGRES_COMMAND_OK) {
-        printf("Erro ao adicionar funcionário.\n");
+        printf("Erro ao adicionar funcionario\n");
         PQclear(resultado);
         return;
     }

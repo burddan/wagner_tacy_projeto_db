@@ -2,8 +2,8 @@
 void adicionar_produto(PGconn *conexao, int user_id);
 void listar_produtos(PGconn *conexao);
 void deletar_produto(PGconn *conexao, int user_id);
-void adicionar_funcionario(PGconn *conexao, int user_id);  // Agora requer user_id
-void deletar_funcionario(PGconn *conexao, int user_id);   // Agora requer user_id
+void adicionar_funcionario(PGconn *conexao, int user_id); 
+void deletar_funcionario(PGconn *conexao, int user_id);   
 
 void menu_inicial(PGconn *conexao) {
 		int opcao;
@@ -46,7 +46,7 @@ void menu_admin(PGconn *conexao, int user_id) {
 				printf("7. Sair\n");
 				printf("Escolha uma opção: ");
 				scanf("%d", &opcao);
-				getchar();  // Limpa o buffer do teclado
+				getchar();  
 
 				switch(opcao) {
 						case 1:
@@ -88,17 +88,17 @@ void menu_funcionario(PGconn *conexao, int user_id) {
 				printf("4. Sair\n");
 				printf("Escolha uma opção: ");
 				scanf("%d", &opcao);
-				getchar();  // Limpa o buffer do teclado
+				getchar();  
 
 				switch(opcao) {
 						case 1:
 								listar_produtos(conexao);
 								break;
 						case 2:
-								adicionar_produto(conexao, user_id);  // Passa o user_id para a função
+								adicionar_produto(conexao, user_id);  
 								break;
 						case 3:
-								deletar_produto(conexao, user_id);  // Passa o user_id para a função
+								deletar_produto(conexao, user_id);  
 								break;
 						case 4:
 								printf("Saindo do menu funcionário...\n");
@@ -119,7 +119,7 @@ void menu_cliente(PGconn *conexao, int user_id) {
 				printf("2. Sair\n");
 				printf("Escolha uma opção: ");
 				scanf("%d", &opcao);
-				getchar();  // Limpa o buffer do teclado
+				getchar();  
 
 				switch(opcao) {
 						case 1:
