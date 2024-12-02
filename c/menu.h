@@ -30,91 +30,94 @@ void menu_inicial(PGconn *conexao) {
 		} while (opcao != 3);
 }
 
-void menu_admin(PGconn *conexao) {
-		int opcao;
+void menu_admin(PGconn *conexao, int user_id) {
+    int opcao;
 
-		do {
-				printf("Menu do admin\n");
-				printf("1. Listar produto\n");
-				printf("2. Adicionar produto\n");
-				printf("3. Deletar produto\n");
-				printf("4. Sair\n");
-				printf("Escolha uma opção: ");
-				scanf("%d", &opcao);
-				getchar();  // Limpa o buffer do teclado
+    do {
+        printf("Menu do admin\n");
+        printf("1. Listar produto\n");
+        printf("2. Adicionar produto\n");
+        printf("3. Deletar produto\n");
+        printf("4. Sair\n");
+        printf("Escolha uma opção: ");
+        scanf("%d", &opcao);
+        getchar();  // Limpa o buffer do teclado
 
-				switch(opcao) {
-						case 1:
-								listar_produtos(conexao);
-								break;
-						case 2:
-								adicionar_produto(conexao, 1);  // 1 indica o código para o admin
-								break;
-						case 3:
-								deletar_produto(conexao, 1);  // 1 indica o código para o admin
-								break;
-						case 4:
-								printf("Saindo do menu administrador...\n");
-								break;
-						default:
-								printf("Opção inválida. Tente novamente.\n");
-				}
-		} while (opcao != 4);
+        switch(opcao) {
+            case 1:
+                listar_produtos(conexao);
+                break;
+            case 2:
+                adicionar_produto(conexao, user_id);  // Passa o user_id para a função
+                break;
+            case 3:
+                deletar_produto(conexao, user_id);  // Passa o user_id para a função
+                break;
+            case 4:
+                printf("Saindo do menu administrador...\n");
+                break;
+            default:
+                printf("Opção inválida. Tente novamente.\n");
+        }
+    } while (opcao != 4);
 }
 
-void menu_funcionario(PGconn *conexao) {
-		int opcao;
 
-		do {
-				printf("Bem-vindo, Funcionário!\n");
-				printf("1. Listar produto\n");
-				printf("2. Adicionar produto\n");
-				printf("3. Deletar produto\n");
-				printf("4. Sair\n");
-				printf("Escolha uma opção: ");
-				scanf("%d", &opcao);
-				getchar();  // Limpa o buffer do teclado
+void menu_funcionario(PGconn *conexao, int user_id) {
+    int opcao;
 
-				switch(opcao) {
-						case 1:
-								listar_produtos(conexao);
-								break;
-						case 2:
-								adicionar_produto(conexao, 1);  // 2 indica o código para o funcionário
-								break;
-						case 3:
-								deletar_produto(conexao, 1);  // 2 indica o código para o funcionário
-								break;
-						case 4:
-								printf("Saindo do menu funcionário...\n");
-								break;
-						default:
-								printf("Opção inválida. Tente novamente.\n");
-				}
-		} while (opcao != 4);
+    do {
+        printf("Bem-vindo, Funcionário!\n");
+        printf("1. Listar produto\n");
+        printf("2. Adicionar produto\n");
+        printf("3. Deletar produto\n");
+        printf("4. Sair\n");
+        printf("Escolha uma opção: ");
+        scanf("%d", &opcao);
+        getchar();  // Limpa o buffer do teclado
+
+        switch(opcao) {
+            case 1:
+                listar_produtos(conexao);
+                break;
+            case 2:
+                adicionar_produto(conexao, user_id);  // Passa o user_id para a função
+                break;
+            case 3:
+                deletar_produto(conexao, user_id);  // Passa o user_id para a função
+                break;
+            case 4:
+                printf("Saindo do menu funcionário...\n");
+                break;
+            default:
+                printf("Opção inválida. Tente novamente.\n");
+        }
+    } while (opcao != 4);
 }
 
-void menu_cliente(PGconn *conexao) {
-		int opcao;
 
-		do {
-				printf("Bem-vindo, Cliente!\n");
-				printf("1. Listar produto\n");
-				printf("2. Sair\n");
-				printf("Escolha uma opção: ");
-				scanf("%d", &opcao);
-				getchar();  // Limpa o buffer do teclado
+void menu_cliente(PGconn *conexao, int user_id) {
+    int opcao;
 
-				switch(opcao) {
-						case 1:
-								listar_produtos(conexao);
-								break;
-						case 2:
-								printf("Saindo do menu cliente...\n");
-								break;
-						default:
-								printf("Opção inválida. Tente novamente.\n");
-				}
-		} while (opcao != 2);
+    do {
+        printf("Bem-vindo, Cliente!\n");
+        printf("1. Listar produto\n");
+        printf("2. Sair\n");
+        printf("Escolha uma opção: ");
+        scanf("%d", &opcao);
+        getchar();  // Limpa o buffer do teclado
+
+        switch(opcao) {
+            case 1:
+                listar_produtos(conexao);
+                break;
+            case 2:
+                printf("Saindo do menu cliente...\n");
+                break;
+            default:
+                printf("Opção inválida. Tente novamente.\n");
+        }
+    } while (opcao != 2);
 }
+
 

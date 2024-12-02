@@ -9,7 +9,6 @@ void registrar_acao(PGconn *conexao, int user_id, const char *acao) {
 
     if (PQresultStatus(resultado) != PGRES_COMMAND_OK) {
         fprintf(stderr, "Erro ao registrar ação: %s\n", PQerrorMessage(conexao));
-		// printf("erro ao registrar login");
     }
 
     PQclear(resultado);
