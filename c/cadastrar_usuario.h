@@ -23,7 +23,7 @@ void cadastrar_usuario(PGconn *conexao) {
 		}
 
 		if (strcmp(tipo, "admin") == 0) {
-				printf("Usuario admin criado!\n");
+				printf("Usuario admin criado\n");
 				PQclear(resultado);
 				return;  
 		}

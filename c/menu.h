@@ -12,9 +12,9 @@ void menu_inicial(PGconn *conexao) {
 				printf("1. Login\n");
 				printf("2. Cadastrar Usuário\n");
 				printf("3. Sair\n");
-				printf("Escolha uma opção: ");
+				printf("Escolha uma opcao: ");
 				scanf("%d", &opcao);
-				getchar();  // Limpa o buffer do teclado
+				getchar();  
 
 				switch(opcao) {
 						case 1:

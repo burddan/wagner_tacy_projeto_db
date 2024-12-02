@@ -13,10 +13,10 @@ void adicionar_produto(PGconn *conexao, int user_id) {
     PGresult *resultado = PQexecParams(conexao, consulta, 2, NULL, parametros, NULL, NULL, 0);
 
     if (PQresultStatus(resultado) == PGRES_COMMAND_OK) {
-        printf("produto adicionado com sucesso\n");
-        registrar_acao(conexao, user_id, "adicionou um produto");
+        printf("Produto adicionado com sucesso\n");
+        registrar_acao(conexao, user_id, "Adicionou um produto");
     } else {
-        fprintf(stderr, "erro ao adicionar produto: %s\n", PQerrorMessage(conexao));
+		printf("Erro ao adicionaar produtos: ");
     }
 
     PQclear(resultado);

@@ -1,15 +1,6 @@
 void listar_produtos(PGconn *conexao) {
 		const char *consulta = "SELECT idProdutos, tipo, descricao FROM Produtos";
-
 		PGresult *resultado = PQexec(conexao, consulta);
-
-		// deletar dps
-		if (PQresultStatus(resultado) != PGRES_TUPLES_OK) {
-				fprintf(stderr, "erro ao listar produtos: %s\n", PQerrorMessage(conexao));
-				PQclear(resultado);
-				return;
-		}
-
 
 		int linhas = PQntuples(resultado);
 		printf("produto disponiveis:\n");

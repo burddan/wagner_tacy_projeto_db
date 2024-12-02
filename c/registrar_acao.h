@@ -8,7 +8,7 @@ void registrar_acao(PGconn *conexao, int user_id, const char *acao) {
     PGresult *resultado = PQexecParams(conexao, consulta, 2, NULL, parametros, NULL, NULL, 0);
 
     if (PQresultStatus(resultado) != PGRES_COMMAND_OK) {
-        fprintf(stderr, "Erro ao registrar ação: %s\n", PQerrorMessage(conexao));
+		printf("erro ao resgistrar\n");
     }
 
     PQclear(resultado);
