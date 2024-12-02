@@ -4,6 +4,7 @@ void adicionar_produto(PGconn *conexao, int user_id) {
 
     printf("Digite o tipo do produto: ");
     scanf("%40s", tipo);
+	getchar();  
     printf("Digite a descricao do produto: ");
     scanf("%100s", descricao);
 
