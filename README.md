@@ -1,9 +1,4 @@
-commands sql
+trabalho wagner e tacy
+pra rodar tu roda no start.sh, ja tem a senha do database pra brincar
 
-\l -- listar todos os database
-
-\c "database_criado " -- conecta com o database
-
-PQstatus - status postgres
-PQexit - sair:
-
+pra compilar rode com a flag -lpq do psql 
